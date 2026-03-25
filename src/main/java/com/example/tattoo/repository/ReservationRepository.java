@@ -1,5 +1,7 @@
 package com.example.tattoo.repository;
-//类型不是java而是Interface的原因是实现代码由spring在运行时自动生成 是一种动态代理机制代理数据库的几个基本操作（增Create查Read改Update删Delete）
+//类型不是java而是Interface的原因是实现代码由spring在运行时自动生成
+//是一种动态代理机制代理数据库的几个基本操作（增Create查Read改Update删Delete）
+//Repository 是数据访问层   作用：负责和数据库交互 crud操作 不写业务规则
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.tattoo.domain.Reservation;
 public interface ReservationRepository
