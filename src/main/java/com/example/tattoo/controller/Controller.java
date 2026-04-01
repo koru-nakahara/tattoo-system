@@ -5,20 +5,18 @@ package com.example.tattoo.controller;
 //@PostMapping=接收POST请求 新建新增数据
 //@Putmapping=接收PUT请求 修改/更新已有数据
 //@DeleteMapping=接收DELETE请求 删除数据
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.example.tattoo.domain.ReservationStatus;
+import org.springframework.web.bind.annotation.*;
 import com.example.tattoo.domain.Reservation;
 import com.example.tattoo.service.ReservationService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@RequestMapping("/reservations")
     public class Controller
-    //Controller  控制层 控制器
+    //Controller  控制层 控制器 ;
     {
 
         private final ReservationService reservationService;
@@ -27,15 +25,11 @@ import java.util.List;
             this.reservationService = reservationService;
         }
 
-        @GetMapping("/test-insert")
-        public String testInsert() {
-            Reservation r = new Reservation();
-            r.setCustomerName("Tom");
-            r.setPhone("123456");
-            r.setDesign("Dragon");
-
-            reservationService.save(r);
-            return "insert ok";
+        @PostMapping
+        public Reservation create(@RequestBody Reservation reservation) {
+            reservation.setStatus(ReservationStatus.WAITING);
+            reservation.setReservationTime(LocalDateTime.now());
+            return reservationService.save(reservation);
         }
         @GetMapping
         public List<Reservation>findALL(){
@@ -51,5 +45,6 @@ import java.util.List;
             reservation.setId(id);
             return reservationService.save(reservation);
         }
+
     }
 

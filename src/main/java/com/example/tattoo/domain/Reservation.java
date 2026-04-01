@@ -15,9 +15,11 @@ public class Reservation {
     private String phone;
     private String design;
     private LocalDateTime reservationTime;
-
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus status;
     // 必须有无参构造
     public Reservation() {}
+
 
     // getter / setter
     public Long getId() { return id; }
@@ -35,6 +37,10 @@ public class Reservation {
     public LocalDateTime getReservationTime() { return reservationTime; }
     public void setReservationTime(LocalDateTime reservationTime) { this.reservationTime = reservationTime; }
 
-    @Enumerated(EnumType.STRING)
-    private ReservationStatus status;
+    public ReservationStatus getStatus() {return status;}
+    public void setStatus(ReservationStatus status){ this.status=status; }
+
+
 }
+
+
