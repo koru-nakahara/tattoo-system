@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 @Entity//实体层 暗示这个类不是普通java类 对应数据库里的一张表
 public class Reservation {
+
     //Reservation 预约
     //ReservationStatus 预约状态
     @Id//设定主键 主键不能重复 主键的三个要素：1 唯一，不能重复 2 不会变化 3 尽量简单
@@ -15,11 +16,25 @@ public class Reservation {
     private String phone;
     private String design;
     private LocalDateTime reservationTime;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
     // 必须有无参构造
     public Reservation() {}
 
+    @PrePersist
+    //在数据第一次插入数据库前自动执行
+    public void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    //每次执行update的时候触发更新
+    public void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 
     // getter / setter
     public Long getId() { return id; }
@@ -39,6 +54,22 @@ public class Reservation {
 
     public ReservationStatus getStatus() {return status;}
     public void setStatus(ReservationStatus status){ this.status=status; }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
 
 }

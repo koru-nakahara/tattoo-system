@@ -9,7 +9,7 @@ import com.example.tattoo.domain.ReservationStatus;
 import org.springframework.web.bind.annotation.*;
 import com.example.tattoo.domain.Reservation;
 import com.example.tattoo.service.ReservationService;
-
+import com.example.tattoo.dto.CreateReservationRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,9 +26,13 @@ import java.util.List;
         }
 
         @PostMapping
-        public Reservation create(@RequestBody Reservation reservation) {
+        public Reservation create(@RequestBody CreateReservationRequest request) {
+            Reservation reservation = new Reservation();
+            reservation.setCustomerName(request.getCustomerName());
+            reservation.setPhone(request.getPhone());
+            reservation.setDesign(request.getDesign());
+            reservation.setReservationTime(request.getReservationTime());
             reservation.setStatus(ReservationStatus.WAITING);
-            reservation.setReservationTime(LocalDateTime.now());
             return reservationService.save(reservation);
         }
         @GetMapping
