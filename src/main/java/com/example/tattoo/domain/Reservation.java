@@ -61,6 +61,9 @@ public class Reservation {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+
+
+
     }
 
     public LocalDateTime getUpdatedAt() {
